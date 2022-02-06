@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         width: '80%',
         padding: 10,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         borderRadius: 8,
         marginBottom : 15,
     },
@@ -24,6 +24,10 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 30,
         fontWeight: '600',
+        marginHorizontal: 20
     }
 });
+
+
+
 export { Button };

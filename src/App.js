@@ -4,6 +4,12 @@ import Dashboard from "./Dashboard";
 import axios from 'axios';
 import { Button } from './Button';
 import { Container, Form } from 'react-bootstrap';
+import io from 'socket.io-client'
+import Space from './Space';
+import { SafeAreaView, StyleSheet, TextInput } from "react-native";
+
+let socket; 
+const CONNECTION_PORT = 'localhost:3000/'
 
 function App(){
   const CLIENT_ID = "814c4cd6f699496faf7fb59dac61f66a"
@@ -14,9 +20,12 @@ function App(){
   const [token, setToken] = useState("");
   const [searchKey, setSearchKey] = useState("");
   const [artists, setArtists] = useState([])
+  const [room, setRoom] = useState("");
+  const [userName, setUserName] = useState("");
   
 
   useEffect( ()=> {
+    socket = io(CONNECTION_PORT)
     const hash = window.location.hash
     let token = window.localStorage.getItem("token")
 
@@ -28,6 +37,10 @@ function App(){
     }
     setToken(token)
   }, [])
+
+  const connectToRoom = () => {
+    socket.emit('join_room', room)
+  }
 
   const logout = () => {
     setToken("")
@@ -50,10 +63,11 @@ function App(){
 
   const renderArtists=()=> {
     return artists.map(artist=> (
-      <Button>
+      <Button onClick={connectToRoom}>
         <div key={artist.id}>
         {artist.images.length ? <img width ={"10%"} src = {artist.images[0].url} alt="img" /> : <div>No image</div>}
-        {artist.name}
+        <div style={{margin: 10}}>{artist.name}</div>
+       
       </div>
       </Button>
       
@@ -63,16 +77,19 @@ function App(){
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Spotify React</h1>
+        <h1>MUSE</h1>
+        
+        
         {!token ?
         <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
         : <button onClick={logout}>Logout</button>}
 
         {token ?
           <form className="d-flex flex-column py-2" style={{height: "10vh"}} onSubmit={searchArtists}>
-          
-          
-            <input type="text" onChange={e => setSearchKey(e.target.value)}/>
+           <TextInput type="text" style={styles.input} placeholder="Name" onChange={(e) => {
+              setUserName(e.target.value);
+            }}/> 
+            <TextInput type="text" style={styles.input} placeholder="Search" onChange={e => setSearchKey(e.target.value)}/>
             <button type={"submit"}>Search</button>
           </form>
           : <h2>Please login</h2>
@@ -81,8 +98,20 @@ function App(){
         {renderArtists()}
 
       </header>
+     
     </div>
   );
 }
+
+const styles = StyleSheet.create({
+  input: {
+    height: 40,
+    color: 'white',
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderColor: 'white'
+  },
+});
 export default App;
 
