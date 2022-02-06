@@ -1,4 +1,4 @@
-# MUSE
+# MUSE (work in progress)
 
 This project is a submission for WSU SCD's Winter 2022 Hackathon: "Life at Home". 
 Muse is a public online music space where users can create rooms to listen to music with any user around the world. Each room has a theme customized to the host's discretion. Room themes can include artists, genres, or anything the host would like. 
