@@ -2,6 +2,7 @@
 
 This project is a submission for WSU SCD's Winter 2022 Hackathon: "Life at Home". 
 Muse is a public online music space where users can create rooms to listen to music with any user around the world. Each room has a theme customized to the host's discretion. Room themes can include artists, genres, or anything the host would like. 
+
 Contributors: Team REACT Kylie Lee and Masrur Tajwar
 
 ## Overview
@@ -10,7 +11,7 @@ As per the theme "Life at Home" we decided to tackle one of the most prevalent i
 We entered the hackathon in hopes of gaining experience in React Native so we chose it as our choice of application. JavaScript was used as the main language, and used the Spotify API for music. 
 
 Kylie: Worked on frontend development of Muse through JavaScript, Node.js, and jQuery. Used figma for UX/UI Design
-Masrur: Worked on backend development of differentiating and connecting client and server ends. 
+Masrur: Worked on backend development of differentiating and connecting client and server ends through Express.js and Socket.io. 
 
 We were able to set up a basic version of how the app would look and act in React Native.
 
